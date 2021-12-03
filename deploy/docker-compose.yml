@@ -1,0 +1,18 @@
+version: "3"
+services:
+    nats:
+        image: nats:alpine3.14
+        expose:
+            - 4222
+
+    backend:
+        build:
+            context: "../backend"
+        depends_on:
+            - nats
+
+    worker1:
+        build:
+            context: "../worker"
+        depends_on:
+            - nats
